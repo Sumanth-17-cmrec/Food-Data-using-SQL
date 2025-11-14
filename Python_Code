@@ -1,0 +1,123 @@
+# Import libraries
+import pandas as pd
+import numpy as np
+import warnings
+warnings.filterwarnings("ignore")
+
+# Pre-processing the data.
+
+hotels=pd.read_csv("C:\\Users\\ADMIN\\Desktop\\Desktop_2023\\HiCouncelor\\zomato.csv")
+    
+
+hotels
+
+# Removing Unwanted Columns
+
+hotels=read_data_from_csv()
+hotels.drop(['address','phone'],axis=1,inplace=True)
+   
+
+# Renaming and Selecting Columns in a Dataset
+
+hotels = remove_unwanted_columns()
+hotels.rename(columns = {'rate' :'rating','approx_cost(for two people)' : 'approx_cost','listed_in(type)' :'type'},inplace=True)
+    
+
+# Dealing with Null Values in a Dataset
+# delete null values of name column as name is the primary identifier of the dataset
+#    replace null values of online order with NA
+#    replace null values of book_table with NA
+#    replace null values of rating to zero as it is a numerical datatype
+#    replace null values of votes to zero as it is a numerical datatype
+#    replace null values of location to NA
+#    replace null values of rest_type to NA
+#    replace null values of dishliked to NA
+#    replace null values of cuisines to NA
+#    replace null values of approxcost to 0 as it is a numerical value
+#    replace null values of type to NA
+
+
+hotels=rename_columns()
+hotels.isna().sum()
+hotels.dropna(subset=['name'],axis=0,inplace=True)
+hotels['online_order'].fillna('NA',inplace=True)
+hotels['book_table'].fillna('NA',inplace=True)
+hotels['rating'].fillna(0,inplace=True)
+hotels['votes'].fillna(0,inplace=True)
+hotels['location'].fillna('NA',inplace=True)
+hotels['rest_type'].fillna('NA',inplace=True)
+hotels['dish_liked'].fillna('NA',inplace=True)
+hotels['cuisines'].fillna('NA',inplace=True)
+hotels['approx_cost'].fillna(0,inplace=True)
+hotels['type'].fillna('NA',inplace=True)
+hotels.isna().sum()
+    
+
+# Identifying Duplicate Data in a Dataset
+# drop all the duplicate values keeping the first value as it is
+
+
+hotels=null_value_check()
+hotels.duplicated().sum()
+hotels.drop_duplicates(inplace=True)
+    
+
+# Text Cleaning
+# removing irrelevant text from all the columns
+
+
+    
+hotels=find_duplicates()
+hotels=hotels[hotels['name'].str.contains('RATED|Rated')==False]
+
+hotels=hotels[hotels['online_order'].str.contains('RATED|Rated')==False]
+
+hotels=hotels[hotels['book_table'].str.contains('RATED|Rated')==False]
+
+hotels=hotels[hotels ['rating'].str.contains('RATED|Rated')==False]
+
+hotels=hotels[hotels['votes'].str.contains('RATED|Rated')==False]
+
+hotels=hotels[hotels['location'].str.contains ('RATED|Rated')==False]
+
+hotels=hotels[hotels['rest_type'].str.contains('RATED|Rated')==False]
+ 
+hotels=hotels[hotels['dish_liked'].str.contains ('RATED|Rated')==False]
+
+hotels=hotels[hotels ['cuisines'].str.contains('RATED|Rated')==False]
+
+hotels=hotels[hotels['approx_cost'].str.contains('RATED|Rated')==False]
+
+hotels=hotels[hotels['type'].str.contains('RATED|Rated')==False]
+    
+
+# Unique Value Check and Irrelevant Value Handling
+#check for unique values in each column and handle the irrelevant values
+
+
+    
+hotels=removing_irrelevant_text()
+hotels['online_order'] = hotels['online_order'].apply(lambda x: 'No' if x not in ['Yes', 'No'] else x)
+hotels=hotels[~hotels['rating'].str.contains('[a-zS]')]
+hotels['rating'] = hotels['rating'].replace(['-', 'NEW'], '0')
+hotels['rating'] = hotels['rating'].str.replace('/5', '')
+def convert_to_int(x):
+    if x == '0':
+        return 0
+    else:
+        return x
+hotels['rating'] = hotels['rating'].apply(convert_to_int)
+   
+
+# Cleaning and Exporting Zomato Dataset
+# remove the unknown character from the dataset and export it to "zomatocleaned.csv"
+
+
+   
+dataframe=check_for_unique_values()
+dataframe['name']=dataframe['name'].str.replace('[Ãx][^A-Za-z]+','',regex=True)
+
+#remove unknown character from dataset
+    
+#export cleaned Dataset to newcsv file named "zomatocleaned.csv"
+dataframe.to_csv('zomatocleaned.csv', index=True)
